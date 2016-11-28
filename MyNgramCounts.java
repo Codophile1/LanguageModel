@@ -90,8 +90,10 @@ public class MyNgramCounts implements NgramCounts {
 	public void incCounts(String ngram) {
 		if(this.ngramCounts.containsKey(ngram)){
 			this.ngramCounts.replace(ngram, this.ngramCounts.get(ngram)+1);
+			this.nbWordsTotal+=(ngram.split("\t").length);
 		}else{
 			this.ngramCounts.put(ngram, 1);
+			this.nbWordsTotal+=(ngram.split("\t").length);
 		}
 	}
 
@@ -102,6 +104,7 @@ public class MyNgramCounts implements NgramCounts {
 			this.ngramCounts.replace(ngram, counts);
 		}else{
 			this.ngramCounts.put(ngram, counts);
+			this.nbWordsTotal+=(ngram.split("\t").length)*counts;
 		}
 	}
 
@@ -139,7 +142,7 @@ public class MyNgramCounts implements NgramCounts {
 		List<String> lines = MiscUtil.readTextFileAsStringList(filePath);
 		for(String line : lines){
 			String[] data = line.split("\t");
-			this.ngramCounts.put(data[0], Integer.parseInt(data[0]));
+			this.ngramCounts.put(data[0], Integer.parseInt(data[1]));
 		}
 	}
 
