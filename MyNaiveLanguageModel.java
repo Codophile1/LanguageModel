@@ -48,7 +48,10 @@ public class MyNaiveLanguageModel implements LanguageModel {
 
 	@Override
 	public Double getNgramProb(String ngram) {
-		return (double) this.ngramCounts.getCounts(ngram);
+		if(this.ngramCounts.getNgramCounterSize()<=0){
+			return 0.0;
+		}
+		return (double) (this.ngramCounts.getCounts(ngram)*1.0/this.ngramCounts.getNgramCounterSize())*1.0;
 	}
 
 	@Override
