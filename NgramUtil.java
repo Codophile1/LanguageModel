@@ -1,9 +1,6 @@
 package langModel;
 
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -23,8 +20,8 @@ public class NgramUtil {
 	 * @return the number of words of the given sequence.
 	 */
 	public static int getSequenceSize (String sequence) {
-		String[] tab=sequence.trim().split(" ");
-		return tab.length;
+		String[] seq = sequence.trim().split(" ");
+		return seq.length;
 	}
 
 	
@@ -41,24 +38,10 @@ public class NgramUtil {
 	 * @param order the order to consider for the n-gram.
 	 * @return history of the given n-gram (the length of the history is order-1).  
 	 */
-	public static String getHistory (String ngram, int order) {//OK
+	public static String getHistory (String ngram, int order) {
+		//TODO
 		
-		String[] tab=ngram.trim().split(" ");
-		String resultat="";
-		
-		for(int i=getSequenceSize(ngram)-2;i>=getSequenceSize(ngram)-order;i--){
-			if(i>=0){
-			resultat+=tab[i]+" ";
-			}
-		}
-		String[] tabInverse=resultat.trim().split(" ");
-		List<String> listTmpInverse = Arrays.asList(tabInverse);
-		Collections.reverse(listTmpInverse);
-		resultat="";
-		for(String s :listTmpInverse){
-			resultat+=s+" ";
-		}
-		return resultat;
+		return "";
 	}
 
 
@@ -77,24 +60,8 @@ public class NgramUtil {
 	 * @param order the maximal order for the n-grams to create from the sentence.
 	 * @return the list of n-grams constructed from the sentence.
 	 */
-	public static List<String> decomposeIntoNgrams (String sentence, int order) {//ok
-		try{
-		String[] tab=sentence.trim().split(" ");
-		String tmpStr="";
-		List<String> list = new LinkedList<String>();
-
-		for(int i=0;i<tab.length;i++){//parcour de la sentence mot par mot
-			tmpStr+=tab[i]+" ";//on ajoute le mot a la phrase
-			list.add(getHistory(tmpStr,order)+tab[i]);//on prend les getHistory(phrase,order) 
-			//et on ajoute le n eme mot de la phrase (car sinon on a que son historique
-			
-		}
-		//System.out.println(list);
-		return list;
-		}
-		catch(NullPointerException e){
-			System.out.println(e.getMessage());
-		}
+	public static List<String> decomposeIntoNgrams (String sentence, int order) {
+		//TODO
 		return null;
 	}
 	
@@ -126,20 +93,8 @@ public class NgramUtil {
 	 * @return a list of generated n-grams from the sentence.
 	 */
 	public static List<String> generateNgrams (String sentence, int minOrder, int maxOrder) {
-		List<String> result=new LinkedList<String>();
-		List<String> list=new LinkedList<String>();
-		for(int i=minOrder;i<=maxOrder;i++){
-			list.addAll(decomposeIntoNgrams(sentence, i));//on add le decomposeIntoNgrams pour chaque order
-
-			for(int j=0;j<i-1;j++){//on enleve les éléments non complets (le début des listes d'order >1)
-				list.remove(j);
-			}
-			result.addAll(list);
-			 while (!list.isEmpty()) {//on vide la liste list
-			        ((LinkedList<String>) list).removeFirst();
-			    }
-		}
-		return result;
+		//TODO
+		return null;
 	}
 
 }
