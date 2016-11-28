@@ -41,8 +41,8 @@ public class NgramUtil {
 	 * @param order the order to consider for the n-gram.
 	 * @return history of the given n-gram (the length of the history is order-1).  
 	 */
-	public static String getHistory (String ngram, int order) {//OK
-		
+	public static String getHistory (String ngram, int order) {
+	
 		String[] tab=ngram.trim().split(" ");
 		String resultat="";
 		
@@ -59,6 +59,8 @@ public class NgramUtil {
 			resultat+=s+" ";
 		}
 		return resultat;
+		
+		
 	}
 
 
@@ -77,24 +79,25 @@ public class NgramUtil {
 	 * @param order the maximal order for the n-grams to create from the sentence.
 	 * @return the list of n-grams constructed from the sentence.
 	 */
-	public static List<String> decomposeIntoNgrams (String sentence, int order) {//ok
+	public static List<String> decomposeIntoNgrams (String sentence, int order) {
 		try{
 		String[] tab=sentence.trim().split(" ");
 		String tmpStr="";
 		List<String> list = new LinkedList<String>();
 
-		for(int i=0;i<tab.length;i++){//parcour de la sentence mot par mot
-			tmpStr+=tab[i]+" ";//on ajoute le mot a la phrase
+		for(int i=0;i<tab.length;i++){//parcours de la sentence mot par mot
+			tmpStr+=tab[i]+" ";//on ajoute le mot à la phrase
 			list.add(getHistory(tmpStr,order)+tab[i]);//on prend les getHistory(phrase,order) 
-			//et on ajoute le n eme mot de la phrase (car sinon on a que son historique
+			//et on ajoute le n eme mot de la phrase (car sinon on a que son historique)
 			
 		}
-		//System.out.println(list);
 		return list;
-		}
+			
+			}
 		catch(NullPointerException e){
 			System.out.println(e.getMessage());
 		}
+//		}	
 		return null;
 	}
 	
@@ -129,13 +132,13 @@ public class NgramUtil {
 		List<String> result=new LinkedList<String>();
 		List<String> list=new LinkedList<String>();
 		for(int i=minOrder;i<=maxOrder;i++){
-			list.addAll(decomposeIntoNgrams(sentence, i));//on add le decomposeIntoNgrams pour chaque order
-
+			list.addAll(decomposeIntoNgrams(sentence, i));//on ajoute le decomposeIntoNgrams pour chaque order
 			for(int j=0;j<i-1;j++){//on enleve les éléments non complets (le début des listes d'order >1)
-				list.remove(j);
+				list.remove(0);
+				
 			}
 			result.addAll(list);
-			 while (!list.isEmpty()) {//on vide la liste list
+			 while (!list.isEmpty()) {//on vide la liste list pour recommencer la boucle sans créer une nouvelle liste à chaque boucle
 			        ((LinkedList<String>) list).removeFirst();
 			    }
 		}
