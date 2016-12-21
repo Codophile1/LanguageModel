@@ -2,6 +2,9 @@ package langModel;
 
 import static org.junit.Assert.*;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,27 +31,19 @@ import org.junit.rules.TestName;
 public class NgramUtilTest {
 	String sentence = "<s> cette phrase est de taille 9 . </s>";
 	String ngram = "où commence l' historique de cet n-gramme";
-	
-	
+	String sentenceCourte= "a b c d e f";
+
+
+
 	/**
 	 * Test method for {@link langModel.NgramUtil#getSequenceSize(java.lang.String)}.
 	 */
 	@Test
 	public void testGetSequenceSize() {
 	
-		System.out.println(NgramUtil.getSequenceSize(sentence));
-		// on the left the expected value and on the right the actual one 
-		// (i.e. the one returned by your method)
 		assertEquals(9, NgramUtil.getSequenceSize(sentence));
-	}
-
-	
-	/**
-	 * Test method for {@link langModel.NgramUtil#generateNgrams(java.lang.String, int, int)}.
-	 */
-	@Test
-	public void testGenerateNgrams() {
-		fail("Not yet implemented");
+		assertEquals(7, NgramUtil.getSequenceSize(ngram));
+		assertEquals(9, NgramUtil.getSequenceSize(sentence));
 	}
 
 	
@@ -57,7 +52,12 @@ public class NgramUtilTest {
 	 */
 	@Test
 	public void testGetHistory() {
-		fail("Not yet implemented");
+		assertEquals("9 . ",NgramUtil.getHistory(sentence, 3));
+		assertEquals("l' historique de cet ",NgramUtil.getHistory(ngram, 5));
+		assertEquals(" ", NgramUtil.getHistory(sentence, 0));
+		assertEquals(" ", NgramUtil.getHistory(sentence, 1));
+
+
 	}
 
 	
@@ -66,8 +66,48 @@ public class NgramUtilTest {
 	 */
 	@Test
 	public void testDecomposeIntoNgrams() {
-		fail("Not yet implemented");
+		List<String> listeTest1=new LinkedList<>();
+		listeTest1.add(" a");
+		listeTest1.add("a b");
+		listeTest1.add("a b c");
+		listeTest1.add("a b c d");
+		listeTest1.add("b c d e");
+		listeTest1.add("c d e f");
+		
+		assertEquals(listeTest1, NgramUtil.decomposeIntoNgrams(sentenceCourte,4));
+
+
+
+		
 	}
+	
+	
+	/**
+	 * Test method for {@link langModel.NgramUtil#generateNgrams(java.lang.String, int, int)}.
+	 */
+	@Test
+	public void testGenerateNgrams() {
+		List<String> listeTest1=new LinkedList<>();
+		listeTest1.add(" a");
+		listeTest1.add(" b");
+		listeTest1.add(" c");
+		listeTest1.add(" d");
+		listeTest1.add(" e");
+		listeTest1.add(" f");
+		listeTest1.add("a b");
+		listeTest1.add("b c");
+		listeTest1.add("c d");
+		listeTest1.add("d e");
+		listeTest1.add("e f");
+		
+		assertEquals(listeTest1, NgramUtil.generateNgrams(sentenceCourte, 1, 2));
+		
+
+	}
+
+	
+	
+	
 	
 	
 	/**
